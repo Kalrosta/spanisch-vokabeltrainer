@@ -1,0 +1,40 @@
+name: build-data
+
+on:
+  push:
+    paths:
+      - "source/wortliste.xlsx"
+      - "scripts/build.py"
+      - ".github/workflows/build-data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install openpyxl
+
+      - name: Build JSON from xlsx
+        run: python scripts/build.py
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/words.json data/examples.json
+          if git diff --staged --quiet; then
+            echo "Keine Datenänderung."
+          else
+            git commit -m "build: Vokabeldaten aus xlsx neu generiert"
+            git push
+          fi

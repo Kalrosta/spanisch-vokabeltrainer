@@ -1,0 +1,38 @@
+name: apply-prio
+
+on:
+  push:
+    paths:
+      - "updates/*.csv"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install openpyxl
+
+      - name: Apply a/b/c updates to xlsx
+        run: python scripts/apply_prio.py
+
+      - name: Commit updated xlsx
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add source/wortliste.xlsx updates/
+          if git diff --staged --quiet; then
+            echo "Keine Änderung."
+          else
+            git commit -m "data: a/b/c aus App-Export übernommen"
+            git push
+          fi

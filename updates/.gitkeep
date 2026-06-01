@@ -1,0 +1,2 @@
+# Hier exportierte prio-update-*.csv ablegen und committen.
+# Die Action apply-prio.yml verarbeitet sie automatisch.

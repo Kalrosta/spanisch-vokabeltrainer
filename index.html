@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#b5462f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Spanisch B2" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Spanisch B2</title>
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" id="navHome" aria-label="Startseite">Spanisch<span>B2</span></button>
+    <button class="icon-btn" id="navData" aria-label="Daten und Einstellungen">⚙</button>
+  </header>
+
+  <!-- START -->
+  <main id="viewHome" class="view">
+    <div class="today-banner" id="todayBanner"></div>
+
+    <section class="card-panel">
+      <div class="stat-row" id="statRow"></div>
+
+      <div class="control-block">
+        <label class="ctl-label">Lernrichtung</label>
+        <div class="seg" id="dirSeg">
+          <button data-dir="de2es" class="seg-btn">DE → ES</button>
+          <button data-dir="es2de" class="seg-btn">ES → DE</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <label class="ctl-label">Niveau-Filter</label>
+        <div class="chips" id="abcChips">
+          <button data-abc="a" class="chip">a · kann ich</button>
+          <button data-abc="b" class="chip">b · erkenne ich</button>
+          <button data-abc="c" class="chip">c · neu</button>
+        </div>
+        <p class="hint-text" id="abcHint"></p>
+      </div>
+
+      <div class="control-block">
+        <label class="ctl-label" for="themeSel">Themenblock</label>
+        <select id="themeSel" class="select"></select>
+      </div>
+
+      <div class="control-block">
+        <label class="ctl-label" for="newCap">Neue Karten pro Tag</label>
+        <select id="newCap" class="select">
+          <option value="10">10</option>
+          <option value="15" selected>15</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="9999">unbegrenzt</option>
+        </select>
+      </div>
+
+      <button class="primary-btn" id="startBtn">Lernen starten</button>
+    </section>
+  </main>
+
+  <!-- KARTE -->
+  <main id="viewStudy" class="view hidden">
+    <div class="progress-line"><span id="progressFill"></span></div>
+    <div class="study-meta" id="studyMeta"></div>
+
+    <section class="flashcard" id="flashcard">
+      <div class="fc-pos" id="fcPos"></div>
+      <div class="fc-front" id="fcFront"></div>
+      <div class="fc-answer hidden" id="fcAnswer">
+        <div class="fc-back" id="fcBack"></div>
+        <div class="fc-badges" id="fcBadges"></div>
+        <div class="fc-hint" id="fcHint"></div>
+        <div class="fc-example" id="fcExample"></div>
+      </div>
+    </section>
+
+    <div class="note-wrap" id="noteWrap">
+      <textarea id="noteField" rows="2" placeholder="Eigene Eselsbrücke (lokal gespeichert)…"></textarea>
+    </div>
+
+    <div class="study-actions">
+      <button class="flip-btn" id="flipBtn">Umdrehen</button>
+      <div class="rate-row hidden" id="rateRow">
+        <button class="rate-btn r-again" data-rate="1">Nochmal<small id="iv1"></small></button>
+        <button class="rate-btn r-hard"  data-rate="2">Schwer<small id="iv2"></small></button>
+        <button class="rate-btn r-good"  data-rate="3">Gut<small id="iv3"></small></button>
+        <button class="rate-btn r-easy"  data-rate="4">Leicht<small id="iv4"></small></button>
+      </div>
+    </div>
+
+    <div class="study-footer">
+      <button class="ghost-btn" id="skipBtn">Kenne ich schon</button>
+      <button class="ghost-btn" id="errBtn">Fehler melden</button>
+      <button class="ghost-btn" id="endBtn">Beenden</button>
+    </div>
+  </main>
+
+  <!-- DATEN -->
+  <main id="viewData" class="view hidden">
+    <section class="data-section">
+      <h2>Lernfortschritt</h2>
+      <p class="muted" id="dataStats"></p>
+      <div class="btn-stack">
+        <button class="line-btn" id="exportBackup">Backup exportieren (JSON)</button>
+        <label class="line-btn file-btn">Backup importieren (JSON)
+          <input type="file" id="importBackup" accept="application/json" hidden />
+        </label>
+      </div>
+    </section>
+
+    <section class="data-section">
+      <h2>Wortliste-Update</h2>
+      <p class="muted">Exportiert die aktuelle a/b/c-Einstufung (live aus deinem Lernstand) als CSV. Datei in den Ordner <code>updates/</code> legen und committen (GitHub Desktop) — der Rest läuft automatisch: die xlsx wird aktualisiert und die App-Daten neu gebaut. Kein Terminal nötig.</p>
+      <div class="btn-stack">
+        <button class="line-btn" id="exportWordlist">Aktuelle a/b/c-Liste exportieren (CSV)</button>
+      </div>
+    </section>
+
+    <section class="data-section">
+      <h2>Gemeldete Fehler</h2>
+      <p class="muted" id="errStats"></p>
+      <div class="btn-stack">
+        <button class="line-btn" id="exportErrors">Fehlerliste exportieren (CSV)</button>
+        <button class="line-btn danger" id="clearErrors">Fehlerliste leeren</button>
+      </div>
+    </section>
+
+    <section class="data-section">
+      <h2>Zurücksetzen</h2>
+      <p class="muted">Löscht Lernfortschritt, Notizen und Fehlerliste auf diesem Gerät. Vokabeln bleiben.</p>
+      <div class="btn-stack">
+        <button class="line-btn danger" id="resetAll">Alles zurücksetzen</button>
+      </div>
+    </section>
+
+    <p class="version" id="versionLine"></p>
+  </main>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
