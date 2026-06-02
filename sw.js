@@ -8,7 +8,7 @@
  * Cache wird mit jeder neuen SW-Version invalidiert. Bei Änderungen
  * an Code oder Daten: VERSION hochzählen.
  */
-const VERSION = "v1.0.0";
+const VERSION = "v1.1.0";
 const CACHE = `esp-b2-${VERSION}`;
 
 const APP_SHELL = [

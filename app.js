@@ -75,7 +75,7 @@ function maybeRedistribute() {
 }
 
 /* ---------- Queue ---------- */
-function buildQueue() {
+function buildQueue(extra = false) {
   rollProgressDate();
   const abcSet = new Set(settings.abc);
   const theme = settings.theme;
@@ -99,7 +99,8 @@ function buildQueue() {
   reviews.sort((a, b) => (fsrs[a.id]?.due || 0) - (fsrs[b.id]?.due || 0));
   shuffle(fresh);
 
-  const budget = Math.max(0, settings.newCap - progress.newToday);
+  // Normal: Rest des Tageslimits. Extra: voller Stapel, Limit ignoriert.
+  const budget = extra ? settings.newCap : Math.max(0, settings.newCap - progress.newToday);
   const newPick = fresh.slice(0, budget);
 
   // Reviews zuerst (fällig), neue Karten gemischt dahinter
@@ -157,6 +158,23 @@ function renderHome() {
   const n = queue.length;
   $("startBtn").disabled = n === 0;
   $("startBtn").textContent = n === 0 ? "Nichts fällig — Filter anpassen" : `Lernen starten (${n})`;
+
+  // Extra-Button: ungesehene Karten, die das normale Tageslimit heute nicht mehr erreicht
+  const abcSet2 = new Set(settings.abc);
+  const freshTotal = WORDS.filter(w => {
+    if (settings.theme !== "__all__" && w.theme !== settings.theme) return false;
+    if (!abcSet2.has(bucket(w))) return false;
+    const c = fsrs[w.id];
+    return !(c && c.reps > 0 && c.state !== "new");
+  }).length;
+  const budgetLeft = Math.max(0, settings.newCap - progress.newToday);
+  const extraBtn = $("extraBtn");
+  if (freshTotal > budgetLeft) {
+    extraBtn.classList.remove("hidden");
+    extraBtn.textContent = `Weitere Karten lernen (über Tageslimit) · ${freshTotal} neu offen`;
+  } else {
+    extraBtn.classList.add("hidden");
+  }
 }
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -420,6 +438,8 @@ function wire() {
   $("newCap").onchange = e => { settings.newCap = +e.target.value; save(LS.settings, settings); renderHome(); };
 
   $("startBtn").onclick = () => { buildQueue(); if (queue.length) { showView("study"); renderCard(); } };
+  $("extraBtn").onclick = () => { buildQueue(true); if (queue.length) { showView("study"); renderCard(); } else toast("Keine neuen Karten in diesem Filter"); };
+  $("homeBackup").onclick = exportBackup;
 
   $("flashcard").onclick = reveal;
   $("flipBtn").onclick = reveal;

@@ -113,6 +113,8 @@ body {
 }
 .primary-btn:active { transform: translateY(1px); }
 .primary-btn:disabled { background: var(--line); color: var(--ink-soft); }
+.extra-btn { margin-top: 10px; color: var(--accent); border-color: var(--accent-soft); }
+.home-backup { margin-top: 14px; }
 
 /* Study view */
 .progress-line { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin-bottom: 10px; }
