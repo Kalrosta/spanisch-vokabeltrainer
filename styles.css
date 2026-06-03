@@ -1,23 +1,23 @@
 :root {
-  --bg: #faf7f4;
+  --bg: #eef1f5;
   --surface: #ffffff;
-  --ink: #2a2420;
-  --ink-soft: #6b6259;
-  --line: #e7ded6;
-  --accent: #b5462f;
-  --accent-soft: #f3e3dd;
+  --ink: #1f2733;
+  --ink-soft: #687284;
+  --line: #dfe4ec;
+  --accent: #2f6fb0;
+  --accent-soft: #e5eef7;
   --good: #3d7a4e;
-  --good-soft: #e3efe6;
-  --hard: #b07d2a;
-  --hard-soft: #f4ecda;
-  --again: #b5462f;
-  --again-soft: #f3e3dd;
-  --easy: #356d8c;
-  --easy-soft: #e1edf3;
-  --masc: #2f6f9e;
+  --good-soft: #e4efe7;
+  --hard: #a9791f;
+  --hard-soft: #f5ecd7;
+  --again: #c0392b;
+  --again-soft: #f8e4e1;
+  --easy: #2f7d92;
+  --easy-soft: #ddeef1;
+  --masc: #2f6fb0;
   --fem: #a83f78;
   --radius: 14px;
-  --shadow: 0 1px 2px rgba(42,36,32,.05), 0 8px 24px rgba(42,36,32,.06);
+  --shadow: 0 1px 2px rgba(31,39,51,.05), 0 8px 24px rgba(31,39,51,.07);
   --serif: Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 }
@@ -92,7 +92,7 @@ body {
 
 .seg { display: flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .seg-btn { flex: 1; border: 0; background: var(--surface); padding: 11px; font-size: 14px; cursor: pointer; color: var(--ink-soft); font-weight: 600; }
-.seg-btn.active { background: var(--accent); color: #fff; }
+.seg-btn.active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
 
 .chips { display: flex; gap: 8px; }
 .chip { flex: 1; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 10px 6px; font-size: 13px; cursor: pointer; color: var(--ink-soft); font-weight: 600; }
@@ -113,7 +113,8 @@ body {
 }
 .primary-btn:active { transform: translateY(1px); }
 .primary-btn:disabled { background: var(--line); color: var(--ink-soft); }
-.extra-btn { margin-top: 10px; color: var(--accent); border-color: var(--accent-soft); }
+.extra-btn { margin-top: 10px; background: var(--accent-soft); color: var(--accent); border: 1.5px solid var(--accent); font-weight: 700; font-size: 16px; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.extra-btn small { font-weight: 500; font-size: 12px; opacity: .8; }
 .home-backup { margin-top: 14px; }
 
 /* Study view */
@@ -152,7 +153,7 @@ body {
 }
 
 .study-actions { margin-top: 14px; }
-.flip-btn { width: 100%; padding: 15px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); font-weight: 700; font-size: 15px; border-radius: 12px; cursor: pointer; }
+.tap-hint { font-size: 12px; color: var(--ink-soft); margin-top: 16px; letter-spacing: .03em; opacity: .75; }
 .rate-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
 .rate-btn { border: 0; border-radius: 12px; padding: 14px 4px 11px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .rate-btn small { font-weight: 500; font-size: 11px; opacity: .85; }

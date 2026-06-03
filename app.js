@@ -136,11 +136,6 @@ function renderHome() {
   document.querySelectorAll("#dirSeg .seg-btn").forEach(btn =>
     btn.classList.toggle("active", btn.dataset.dir === settings.dir));
 
-  // ABC chips
-  document.querySelectorAll("#abcChips .chip").forEach(ch =>
-    ch.classList.toggle("active", settings.abc.includes(ch.dataset.abc)));
-  $("abcHint").textContent = "a/b/c passt sich automatisch deinem Lernstand an: neu/unsicher = c, gefestigt = a.";
-
   // Theme select
   const sel = $("themeSel");
   if (!sel.dataset.filled) {
@@ -171,7 +166,7 @@ function renderHome() {
   const extraBtn = $("extraBtn");
   if (freshTotal > budgetLeft) {
     extraBtn.classList.remove("hidden");
-    extraBtn.textContent = `Weitere Karten lernen (über Tageslimit) · ${freshTotal} neu offen`;
+    extraBtn.innerHTML = `Weitere Karten lernen<small>${freshTotal} neu offen</small>`;
   } else {
     extraBtn.classList.add("hidden");
   }
@@ -252,7 +247,7 @@ function renderCard() {
   // UI-Zustand
   $("fcAnswer").classList.add("hidden");
   $("rateRow").classList.add("hidden");
-  $("flipBtn").classList.remove("hidden");
+  $("tapHint").classList.remove("hidden");
 
   // Meta + Fortschritt
   $("studyMeta").textContent = `Karte ${qIndex + 1} von ${queue.length}`;
@@ -263,7 +258,7 @@ function reveal() {
   if (revealed) return;
   revealed = true;
   $("fcAnswer").classList.remove("hidden");
-  $("flipBtn").classList.add("hidden");
+  $("tapHint").classList.add("hidden");
   $("rateRow").classList.remove("hidden");
   // Intervall-Vorschau pro Bewertung
   const w = queue[qIndex];
@@ -425,15 +420,6 @@ function wire() {
   document.querySelectorAll("#dirSeg .seg-btn").forEach(btn =>
     btn.onclick = () => { settings.dir = btn.dataset.dir; save(LS.settings, settings); renderHome(); });
 
-  document.querySelectorAll("#abcChips .chip").forEach(ch =>
-    ch.onclick = () => {
-      const k = ch.dataset.abc;
-      const set = new Set(settings.abc);
-      set.has(k) ? set.delete(k) : set.add(k);
-      if (set.size === 0) set.add(k); // mind. eins aktiv
-      settings.abc = [...set]; save(LS.settings, settings); renderHome();
-    });
-
   $("themeSel").onchange = e => { settings.theme = e.target.value; save(LS.settings, settings); renderHome(); };
   $("newCap").onchange = e => { settings.newCap = +e.target.value; save(LS.settings, settings); renderHome(); };
 
@@ -442,7 +428,6 @@ function wire() {
   $("homeBackup").onclick = exportBackup;
 
   $("flashcard").onclick = reveal;
-  $("flipBtn").onclick = reveal;
   document.querySelectorAll("#rateRow .rate-btn").forEach(b =>
     b.onclick = () => rate(+b.dataset.rate));
   $("skipBtn").onclick = skip;

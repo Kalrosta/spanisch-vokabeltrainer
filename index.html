@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#b5462f" />
+  <meta name="theme-color" content="#2f6fb0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Spanisch B2" />
@@ -32,16 +32,6 @@
           <button data-dir="de2es" class="seg-btn">DE → ES</button>
           <button data-dir="es2de" class="seg-btn">ES → DE</button>
         </div>
-      </div>
-
-      <div class="control-block">
-        <label class="ctl-label">Niveau-Filter</label>
-        <div class="chips" id="abcChips">
-          <button data-abc="a" class="chip">a · kann ich</button>
-          <button data-abc="b" class="chip">b · erkenne ich</button>
-          <button data-abc="c" class="chip">c · neu</button>
-        </div>
-        <p class="hint-text" id="abcHint"></p>
       </div>
 
       <div class="control-block">
@@ -75,6 +65,7 @@
     <section class="flashcard" id="flashcard">
       <div class="fc-pos" id="fcPos"></div>
       <div class="fc-front" id="fcFront"></div>
+      <div class="tap-hint" id="tapHint">Zum Umdrehen tippen</div>
       <div class="fc-answer hidden" id="fcAnswer">
         <div class="fc-back" id="fcBack"></div>
         <div class="fc-badges" id="fcBadges"></div>
@@ -88,7 +79,6 @@
     </div>
 
     <div class="study-actions">
-      <button class="flip-btn" id="flipBtn">Umdrehen</button>
       <div class="rate-row hidden" id="rateRow">
         <button class="rate-btn r-again" data-rate="1">Nochmal<small id="iv1"></small></button>
         <button class="rate-btn r-hard"  data-rate="2">Schwer<small id="iv2"></small></button>
