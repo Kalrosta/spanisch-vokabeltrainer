@@ -1,11 +1,14 @@
 :root {
-  --bg: #eef1f5;
+  --bg: #fdf8ec;
   --surface: #ffffff;
-  --ink: #1f2733;
-  --ink-soft: #687284;
-  --line: #dfe4ec;
-  --accent: #2f6fb0;
-  --accent-soft: #e5eef7;
+  --ink: #2a2118;
+  --ink-soft: #7c7163;
+  --line: #ece1cd;
+  --accent: #b41e22;
+  --accent-soft: #f6e1e0;
+  --gold: #d99b00;
+  --gold-soft: #fbeccb;
+  --gold-ink: #94680a;
   --good: #3d7a4e;
   --good-soft: #e4efe7;
   --hard: #a9791f;
@@ -17,7 +20,7 @@
   --masc: #2f6fb0;
   --fem: #a83f78;
   --radius: 14px;
-  --shadow: 0 1px 2px rgba(31,39,51,.05), 0 8px 24px rgba(31,39,51,.07);
+  --shadow: 0 1px 2px rgba(42,33,24,.05), 0 8px 24px rgba(42,33,24,.07);
   --serif: Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 }
@@ -49,7 +52,7 @@ body {
   letter-spacing: .01em; color: var(--ink); padding: 0;
 }
 .brand span {
-  color: var(--accent); margin-left: 6px;
+  color: var(--gold-ink); margin-left: 6px;
   font-size: 13px; font-weight: 700; vertical-align: 2px;
   letter-spacing: .08em; text-transform: uppercase;
 }
@@ -67,7 +70,7 @@ body {
 /* Today banner */
 .today-banner {
   border-radius: var(--radius); padding: 14px 16px; margin-bottom: 16px;
-  font-size: 14.5px; border: 1px solid var(--line); background: var(--surface);
+  font-size: 14.5px; border: 1px solid var(--gold-soft); background: var(--gold-soft); color: var(--gold-ink);
   box-shadow: var(--shadow);
 }
 .today-banner.done { border-color: var(--good); background: var(--good-soft); color: var(--good); }
@@ -113,7 +116,7 @@ body {
 }
 .primary-btn:active { transform: translateY(1px); }
 .primary-btn:disabled { background: var(--line); color: var(--ink-soft); }
-.extra-btn { margin-top: 10px; background: var(--accent-soft); color: var(--accent); border: 1.5px solid var(--accent); font-weight: 700; font-size: 16px; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.extra-btn { margin-top: 10px; background: var(--gold-soft); color: var(--gold-ink); border: 1.5px solid var(--gold); font-weight: 700; font-size: 16px; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .extra-btn small { font-weight: 500; font-size: 12px; opacity: .8; }
 .home-backup { margin-top: 14px; }
 
